@@ -10,8 +10,21 @@ class TrackViewModel(
     private val trackId: String,
     private val tracksInteractor: TracksInteractor
 ) : ViewModel() {
-    init {
-        Log.d("wtf", "init!")
+
+    private var loadingObserver: ((Boolean) -> Unit)? = null
+
+    var isLoading: Boolean = true
+        private set(value) {
+            field = value
+            loadingObserver?.invoke(value)
+        }
+
+    fun addLoadingObserver(loadingObserver: ((Boolean) -> Unit)) {
+        this.loadingObserver = loadingObserver
+    }
+
+    fun removeLoadingObserver() {
+        this.loadingObserver = null
     }
 
     companion object {
