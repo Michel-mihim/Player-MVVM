@@ -15,20 +15,15 @@ class TrackViewModel(
     }
 
     companion object {
-        fun getViewModelFactory(trackId: String): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(
-                    modelClass: Class<T>,
-                    extras: CreationExtras
-                ): T {
-                    val application = checkNotNull(extras[APPLICATION_KEY])
+        fun getViewModelFactory(trackId: String): ViewModelFactory = viewModelProvider.Factory {
+               initializer {
+                   val interactor = (this[APPLICATION_KEY] as MyApplication).provideTracksInteractor()
 
-                    return TrackViewModel(
-                        trackId,
-                        (application as MyApplication).provideTracksInteractor()
-                    ) as T
-                }
+                   TrackViewModel(
+                       trackId,
+                       interactor
+                   )
+               }
             }
     }
 }
