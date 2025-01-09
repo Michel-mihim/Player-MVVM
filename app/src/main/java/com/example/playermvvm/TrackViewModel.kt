@@ -3,6 +3,8 @@ package com.example.playermvvm
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 
 class TrackViewModel(
     private val trackId: String,
@@ -12,15 +14,12 @@ class TrackViewModel(
     }
 
     companion object {
-        fun getViewModelFactory(trackId: String): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                // 1
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return TrackViewModel(
-                        trackId
-                    ) as T
-                }
+        fun getViewModelFactory(trackId: String): ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                TrackViewModel(
+                    trackId
+                )
             }
+        }
     }
 }
