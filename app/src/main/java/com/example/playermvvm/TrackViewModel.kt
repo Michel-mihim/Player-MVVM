@@ -1,6 +1,8 @@
 package com.example.playermvvm
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,19 +14,11 @@ class TrackViewModel(
 ): ViewModel() {
     private var loadingObserver: ((Boolean) -> Unit)? = null
 
-    var isLoading: Boolean = true
-        private set(value) {
-            field = value
-            loadingObserver?.invoke(value)
-        }
+    private var loadingLiveData = MutableLiveData(true)
 
-    fun addLoadingObserver(loadingObserver: ((Boolean) -> Unit)) {
-        this.loadingObserver = loadingObserver
-    }
 
-    fun removeLoadingObserver() {
-        this.loadingObserver = null
-    }
+    fun getLoadingLiveData(): LiveData<Boolean> = loadingLiveData
+
 
     companion object {
         fun getViewModelFactory(trackId: String): ViewModelProvider.Factory = viewModelFactory {

@@ -16,15 +16,10 @@ class TrackActivity : ComponentActivity() {
         setContentView(R.layout.activity_track)
 
         viewModel = ViewModelProvider(this, TrackViewModel.getViewModelFactory("123"))[TrackViewModel::class.java]
-        changeProgressBarVisibility(viewModel.isLoading)
-        viewModel.addLoadingObserver { isLoading ->
+
+        viewModel.getLoadingLiveData().observe(this) { isLoading ->
             changeProgressBarVisibility(isLoading)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.removeLoadingObserver()
     }
 
     private fun changeProgressBarVisibility(visible: Boolean) {}
