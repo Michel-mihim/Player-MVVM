@@ -22,7 +22,9 @@ class TrackViewModel(
         this.loadingObserver = loadingObserver
     }
 
-    fun removeLoadingObserver() {}
+    fun removeLoadingObserver() {
+        this.loadingObserver = null
+    }
 
     companion object {
         fun getViewModelFactory(trackId: String): ViewModelProvider.Factory = viewModelFactory {
