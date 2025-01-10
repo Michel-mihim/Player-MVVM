@@ -16,6 +16,10 @@ class TrackViewModel(
 
     private var loadingLiveData = MutableLiveData(true)
 
+    init {
+        loadingLiveData.postValue(false)
+        Log.d("wtf", "init")
+    }
 
     fun getLoadingLiveData(): LiveData<Boolean> = loadingLiveData
 

@@ -1,6 +1,7 @@
 package com.example.playermvvm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class TrackActivity : ComponentActivity() {
         viewModel.getLoadingLiveData().observe(this) { isLoading ->
             changeProgressBarVisibility(isLoading)
         }
+
     }
 
     private fun changeProgressBarVisibility(visible: Boolean) {}
